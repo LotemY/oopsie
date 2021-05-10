@@ -1,0 +1,27 @@
+{
+    "my": [
+        {
+            "id": 1,
+            "name": "Lital",
+            "img": "./images/liat.png",
+            "status": "Occupied"
+        }
+    ],
+    "family": [
+        {
+            "id": 2,
+            "name": "Tom",
+            "img": "./images/tom.png",
+            "status": "Attention"
+        },
+        {
+            "id": 3,
+            "name": "Yoni",
+            "img": "./images/yoni.png",
+            "status": "Free"
+        }
+    ],
+    "friends": [
+        {}
+    ]
+}

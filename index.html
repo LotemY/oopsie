@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Assistant' rel='stylesheet'>
+    <script src="js/script.js"></script>
+    <title>Oops!e</title>
+</head>
+
+<body id="listPage" onload="list(); checkMediaQuery()">
+    <header>
+        <img id="ham" src="./images/list.svg" alt="ham" title="ham">
+        <a href="./index.html"></a>
+        <section class="lastItem">
+            <img class="utilities" src="./images/bell.svg" alt="notification" title="notification">
+            <img class="utilities" src="./images/search.svg" alt="search" title="search">
+        </section>
+    </header>
+    <div id="wrapper">
+        <main>
+            <section id="h1Section">
+                <article id="hImg"></article>
+                <h1>Parking Lots</h1>
+            </section>
+            <section id="list">
+                <!--Section of all the lists-->
+                <section id="myParkingList">
+                    <section>
+                        <h2>
+                            My Parking Lots
+                        </h2>
+                        <article id="addParking" onclick="openForm()"></article>
+                        <img class="utilities" src="./images/pencil.svg" alt="edit" title="edit">
+                    </section>
+                    <ul id="my"></ul>
+                </section>
+
+                <section id="familyParkingList">
+                    <h2>
+                        Family Parking Lots
+                    </h2>
+                    <ul id="family"></ul>
+                </section>
+                <section id="friendsParkingList">
+                    <h2>
+                        Friends Parking Lots
+                    </h2>
+                    <ul id="friends">
+
+                    </ul>
+                </section>
+            </section>
+
+
+            <div id="formOverlay">
+                <section id="frontOverlay">
+                    <article>New Parking</article>
+
+                    <form id="myForm">
+                        <label for="id">Parking ID<input type="text" id="id" name="id" pattern="[0-9]{6}"
+                                required></label>
+                        <label for="pName">Parking Name<input type="text" id="pName" name="name" pattern="[A-Za-z]{3,6}"
+                                required></label>
+                        <article>Add Cars</article>
+                        <section id="carSection">
+                            <label for="car">Car plate number
+                                <input type="text" id="car" name="cars[]" pattern="[0-9]{7,8}">
+                            </label>
+                            <input type="button" onclick="addElement('car')" value="Add">
+                            <section id="addedCars">
+                            </section>
+                        </section>
+                        <aside id="carError"></aside>
+                        <article>Add Members</article>
+                        <section id="membersForm">
+                            <label for="memb">User Name<input type="text" id="memb" name="members"
+                                    pattern="[A-Za-z]{3,6}"></label>
+                            <label for="op">Permmision type
+                                <select id="op" name="op">
+                                    <option value="Main user"> Main user </option>
+                                    <option value="Secondary user"> Secondary user </option>
+                                </select>
+                            </label>
+                            <input type="button" onclick="addElement('memb')" value="Add">
+                            <section id="addedMem">
+                            </section>
+                        </section>
+                        <aside id="membError"></aside>
+                        <label>Set this Parking as default?<input type="checkbox" id="default" name="default"></label>
+                        <section class="saveOrCancel">
+                            <input class="formButton" type="submit" value="Save">
+                            <input class="formButton" type="button" onclick="closeForm()" value="Cancel">
+                        </section>
+                    </form>
+                </section>
+            </div>
+        </main>
+        <aside id="asideTablet">
+        </aside>
+    </div>
+</body>
+
+</html>

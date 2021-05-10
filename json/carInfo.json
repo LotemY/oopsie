@@ -1,0 +1,24 @@
+{
+    "knownCars": [
+        {
+            "carOwner": "Liat",
+            "carModel": "Mercedes",
+            "color": "Black",
+            "plate": "987-65-432"
+        },
+        {
+            "carOwner": "Yoni",
+            "carModel": "Toyota",
+            "color": "Silver",
+            "plate": "76-543-21"
+        }
+    ],
+    "unknownCar": [
+        {
+            "carOwner": "Unknown",
+            "carModel": "Hyundai i10",
+            "color": "Silver",
+            "plate": "12-345-67"
+        }
+    ]
+}
