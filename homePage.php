@@ -17,7 +17,7 @@ include "config.php";
 <body id="listPage" onload="list()">
     <header>
         <img id="ham" src="./images/list.svg" alt="ham" title="ham">
-        <a href="./homePage.html"></a>
+        <a href="./homePage.php"></a>
         <section class="lastItem">
             <img class="utilities" src="./images/bell.svg" alt="notification" title="notification">
             <img class="utilities" src="./images/search.svg" alt="search" title="search">
@@ -123,7 +123,7 @@ include "config.php";
                             echo "<li>Plate No: " . $row["plate"] . "</li>";
                             echo "</ul><br>
                                 <label>Do you recognize this vehicle?</label>
-                                <form action='parkingPage.php?parkingId=1' method=POST>
+                                <form method=POST>
                                     <input name='parkingId' value=1 hidden>
                                     <label for='owner'>Car owner: <input type='text' id='owner' name='owner' pattern='[A-Za-z]{3,15}'></label>
                                     <section class='saveOrCancel'>
@@ -155,7 +155,7 @@ include "config.php";
                             echo "<li>Car Model: " . $row["carModel"] . "</li>";
                             echo "<li>Color: " . $row["color"] . "</li>";
                             echo "<li>Plate: " . $row["plate"] . "</li></ul>";
-                            echo '<a href="parkingPage.php?parkingId=1&del=' . $row["id"] . '"><img src="./images/trash.svg" alt="delete" title="delete"></a></aside>';
+                            echo '<a href="homePage.php?del=' . $row["id"] . '"><img src="./images/trash.svg" alt="delete" title="delete"></a></aside>';
                         }
                         $id = $_GET['del'] ?? null;
                         if ($id)
@@ -167,7 +167,7 @@ include "config.php";
                     <br>
                     <h1>Add a new car</h1>
                     <?php
-                    echo "<form action='parkingPage.php?parkingId=1&ins=true' method=POST>
+                    echo "<form method=POST>
                             <label>Car Owner:<input name='caro' type='text' pattern='[A-Za-z]{3,15}'></label>
                             <label>Car Model:<input name='carm' type='text' pattern='[A-Za-z]{3,30}'></label>
                             <label>Color:<input name='color' type='text' pattern='[A-Za-z]{3,15}'></label>

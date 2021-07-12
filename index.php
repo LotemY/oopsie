@@ -36,7 +36,7 @@ include "config.php";
         $result = mysqli_query($connection, $query);
         $row = mysqli_fetch_array($result);
         if ($row) {
-            header('Location: homePage.html');
+            header('Location: homePage.php');
         }
     }
     ?>
