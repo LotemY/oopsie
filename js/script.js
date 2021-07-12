@@ -1,65 +1,22 @@
 let carArr = [];
 let memArr = [];
-let tabInfo = [];
 
-// checkMediaQuery = () => {
-//     try {
-//         // If the inner width of the window is greater then 768px
-//         if (window.innerWidth < 768) {
-//             // Then log this message to the console
-//             document.getElementById("asideTablet").style.display = "none";
-//             document.getElementById("asideDis").style.display = "none";
-//             document.getElementById("Lital").style.backgroundColor = "";
-
-//         }
-//         else {
-//             if (location.pathname == "/parkingPage.html")
-//                 location.href = "index.html";
-//             document.getElementById("asideTablet").style.display = "flex";
-//         }
-//     }
-//     catch (err) { }
-// }
 checkMediaQuery = () => {
     try {
-        // If the inner width of the window is greater then 768px
-        if (window.innerWidth < 768 && location.pathname == "/students/2020-2021/web1/dev_206/index.html") {
-            // Then log this message to the console
+        if (window.innerWidth < 768 && location.pathname == "homePage.php") {
             document.getElementById("asideTablet").style.display = "none";
             document.getElementById("asideDis").style.display = "none";
-            document.getElementById("Lital").style.backgroundColor = "";
         }
-        else {
-            if (window.innerWidth > 768 && location.pathname == "/students/2020-2021/web1/dev_206/parkingPage.html")
-                location.href = "/students/2020-2021/web1/dev_206/index.html";
-            else
-                document.getElementById("asideTablet").style.display = "flex";
-        }
+        if (window.innerWidth > 768 && location.pathname != "homePage.php")
+            location.href = "homePage.php";
+        else
+            document.getElementById("asideTablet").style.display = "flex";
     }
     catch (err) { }
 }
 
 // Add a listener for when the window resizes
 window.addEventListener('resize', checkMediaQuery);
-
-fetch("./json/carInfo.json").then(info => {
-    return info.json();
-}).then(carInfo => {
-    try {
-        tabInfo = carInfo;
-        document.getElementById('contentOne').innerHTML =
-            `<div class="close-btn" onclick="togglePopup()">&times;</div>
-            <h1>Car info</h1>
-            <br>
-            <ul id="carInfoPopUp">
-                <li>Car owner: ${carInfo.unknownCar[0].carOwner}</li>
-                <li>Car model: ${carInfo.unknownCar[0].carModel}</li>
-                <li>Color: ${carInfo.unknownCar[0].color}</li>
-                <li>Plate No: ${carInfo.unknownCar[0].plate}</li>
-            </ul>`;
-    }
-    catch (err) { }
-});
 
 list = () => fetch("./json/users.json").then(res => {
     return res.json();
@@ -70,7 +27,7 @@ list = () => fetch("./json/users.json").then(res => {
                 if (j.name) {
                     document.getElementById(i).innerHTML +=
                         `<li class="rectangle" name="myParkingLots[]" id="${j.name}">
-                            <button class="parkingList" onclick="${i == 'my' ? 'my' : j.name}Parking()">
+                            <button class="parkingList" onclick=goParking('${j.name}')>
                             <article>
                                 <img class="user" src="${j.img}">
                             </article>
@@ -88,7 +45,7 @@ list = () => fetch("./json/users.json").then(res => {
                                 <section><img src="./images/Event_Available_Icon_3.png">Events</section>
                             </section>
                             </button>
-                        </li><br>`;
+                        </li>`;
                 }
                 else
                     document.getElementById(i).innerHTML += `<li id="none">NONE</li>`;
@@ -96,38 +53,32 @@ list = () => fetch("./json/users.json").then(res => {
             if (i != "friends")
                 document.getElementById(i).innerHTML += `<hr class="line">`;
         }
-        document.getElementById('asideTablet').innerHTML += `
-            <section id="asideDis">
-            <h1>My Parking</h1>
-            <img id="parkingImg" src="./images/parking.png"><article>
-                ${tabInfo.unknownCar[0].carOwner}
-                <br>
-                ${tabInfo.unknownCar[0].carModel}
-                <br>
-                ${tabInfo.unknownCar[0].color}
-                <br>
-                ${tabInfo.unknownCar[0].plate}
-                </article>
-            </section>`;
     }
     catch (err) { }
 });
 
-myParking = () => {
+goParking = (name) => {
+    let id = 1;
+    if (name == "Tom")
+        id = 2;
+    else if (name == "Yoni")
+        id = 3;
     if (window.getComputedStyle(wrapper, null).getPropertyValue("display") == "block")
-        location.href = "parkingPage.html";
+        location.href = "parkingPage.php?parkingId=" + id;
     else {
-        document.getElementById("asideDis").style.display = "flex";
-        document.getElementById("Lital").style.backgroundColor = "#222222";
+        if (name == "Lital")
+            document.getElementById("asideDis").style.display = "flex";
+        else
+            document.getElementById("asideDis").style.display = "none";
     }
 }
 
-TomParking = () => {
-    location.href = "#";
-}
-
-YoniParking = () => {
-    location.href = "#";
+whichParking = () => {
+    let names = ["My", "Tom", "Yoni"]
+    const id = new URLSearchParams(window.location.search).get('parkingId')
+    document.getElementById('h1Section').innerHTML = `
+        <article id="${names[id - 1] == "My" ? "My" : names[id - 1] + "s"}"></article>
+        <h1>${names[id - 1] == "My" ? "My" : names[id - 1] + "'s"} Parking</h1>`;
 }
 
 openForm = () => {
@@ -191,18 +142,33 @@ removeElement = (index) => {
 }
 
 togglePopup = () => {
+    try {
+        document.getElementById('owner').value = "";
+    } catch (err) { };
     document.getElementById("popup-1").classList.toggle("active");
 }
 
 collapse = () => {
-    document.getElementsByClassName("collapsible")[0].classList.toggle("active");
-    if (document.getElementsByClassName("collapsible")[0].nextElementSibling.style.display === "block") {
-        document.getElementsByClassName("collapsible")[0].nextElementSibling.style.display = "none";
+    if (document.getElementsByClassName("arrow")[0].style.transform == "rotate(90deg)")
         document.getElementsByClassName("arrow")[0].style.transform = "rotate(270deg)";
-    }
-
-    else {
-        document.getElementsByClassName("collapsible")[0].nextElementSibling.style.display = "block";
+    else
         document.getElementsByClassName("arrow")[0].style.transform = "rotate(90deg)";
+}
+
+contentSwitch = (i) => {
+    if (i == 1) {
+        document.getElementById("unknown").style.display = "block";
+        document.getElementById("viewAll").style.display = "none";
+        document.getElementById("addCar").style.display = "none";
+    }
+    else if (i == 2) {
+        document.getElementById("unknown").style.display = "none";
+        document.getElementById("viewAll").style.display = "block";
+        document.getElementById("addCar").style.display = "none";
+    }
+    else {
+        document.getElementById("unknown").style.display = "none";
+        document.getElementById("viewAll").style.display = "none";
+        document.getElementById("addCar").style.display = "block";
     }
 }
