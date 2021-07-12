@@ -27,7 +27,7 @@ include "config.php";
 <body id="mainObjectLayout" onload="checkMediaQuery(),whichParking()">
     <header>
         <img id="ham" src="./images/list.svg" alt="ham" title="ham">
-        <a href="./homePage.html"></a>
+        <a href="./homePage.php"></a>
         <section class="lastItem">
             <img class="utilities" src="./images/bell.svg" alt="notification" title="notification">
             <img class="utilities" src="./images/search.svg" alt="search" title="search">
